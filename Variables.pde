@@ -1,3 +1,5 @@
+import java.util.Hashtable;
+
 final int menuScreen = 0,
   gameScreen = 1,
   walkable = 1,
@@ -20,5 +22,7 @@ int colours[][] =  {{255, 0, 0}, {255, 127, 0},{255, 255, 0},{0, 255, 0},{0, 0, 
   
 PFont font;
 
-Level currentLevel = new Level();
+Level currentLevel;
+
+Player player;
   

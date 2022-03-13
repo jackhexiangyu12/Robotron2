@@ -1,8 +1,11 @@
 class Level{
  int[][] map;
+ 
+ int level;
   
- Level() {
+ Level(int level) {
    map = new int[horizontalDividers][verticalDividers];
+   this.level = level;
  }
  
  void generateLevel(){
@@ -40,46 +43,83 @@ class Level{
          }
        }
     }
-    
-    //filler();
+    validate();
  }
  
- //void filler(){
- //  try{
- //  for(int i = 0;  i< horizontalDividers; i++){
- //      int availableDirectionsTop = 0;
- //      if(map[i-1][0] == 0){
- //        availableDirectionsTop++;
- //      }
- //      if(map[i+1][0] == 0){
- //        availableDirectionsTop++;
- //      }
- //      if(map[i][1] == 0){
- //        availableDirectionsTop++;
- //      }
-       
- //      if(availableDirectionsTop < 2){
- //        map[i][0] = 1;
- //      }
-       
- //      int availableDirectionsBottom = 0;
- //      if(map[i-1][horizontalDividers] == 0){
- //        availableDirectionsBottom++;
- //      }
- //      if(map[i+1][horizontalDividers] == 0){
- //        availableDirectionsBottom++;
- //      }
- //      if(map[i][horizontalDividers - 1] == 0){
- //        availableDirectionsBottom++;
- //      }
-       
- //      if(availableDirectionsBottom < 2){
- //        map[i][horizontalDividers] = 1;
- //      }
- //  }
- //  }catch( ArrayIndexOutOfBoundsException e ) {
- //  }
- //}
+ void validate(){
+   int total = getTotal();
+   int randomX = (int)random(0, horizontalDividers);
+   int randomY = (int)random(0, verticalDividers);
+   if(map[randomX][randomY] == 1){
+     validate();
+     return;
+   }
+   
+   HashMap<String, Integer> hm = new HashMap<String, Integer>();
+   checkSurroundings(randomX, randomY, hm);
+   if(hm.size() != total){
+      map = new int[horizontalDividers][verticalDividers];
+      generateLevel(); 
+   }
+ }
+ 
+ int getTotal(){
+   int total = 0;
+   for(int i = 0;  i< horizontalDividers; i++){
+     for(int j = 0; j < verticalDividers; j++){
+        if(map[i][j] == 0){
+          total++;
+        }
+     }
+   }
+   return total;
+ }
+ 
+ void checkSurroundings(int x, int y, HashMap<String, Integer> hm){
+   hm.put(x + "," + y, 0);
+   
+   
+   if(x != 0){
+     String xStr = Integer.toString(x-1);
+     String yStr = Integer.toString(y);
+     if(!(hm.containsKey(xStr + "," + yStr))){
+       if(map[x-1][y] == 0){
+          checkSurroundings(x-1, y,hm);
+        }
+     } 
+   }
+   
+   if(x != horizontalDividers - 1){
+     String xStr = Integer.toString(x+1);
+     String yStr = Integer.toString(y);
+      if(!(hm.containsKey(xStr + "," + yStr))){
+       if(map[x+1][y] == 0){
+          checkSurroundings(x+1, y,hm);
+        }
+     }
+   }
+   
+   if(y != 0){
+     String xStr = Integer.toString(x);
+     String yStr = Integer.toString(y-1);
+      if(!(hm.containsKey(xStr + "," + yStr))){
+       if(map[x][y-1] == 0){
+          checkSurroundings(x, y-1,hm);
+        }
+     }
+   }
+   
+   if(y != verticalDividers - 1){
+     String xStr = Integer.toString(x);
+     String yStr = Integer.toString(y+1);
+      if(!(hm.containsKey(xStr + "," + yStr))){
+       if(map[x][y+1] == 0){
+          checkSurroundings(x, y+1,hm);
+        }
+     }
+   }
+   
+ }
  
  void draw(){
    for(int i = 0;  i< horizontalDividers; i++){

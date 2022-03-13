@@ -8,14 +8,15 @@ void setup() {
 
 void reset() {
   score = 0;
-  level = 1;
+  level = 0;
   time = 0;
   fontColour = colours[0];
   colourTracker = 0;
-
+  
+  currentLevel = new Level(level++);
   currentLevel.generateLevel();
-  Player player = new Player(0,0,0,0);
-
+  player = new Player(0,0,0,0);
+  player.spawn(currentLevel.map);
 }
 
 void draw() {
@@ -37,6 +38,8 @@ void draw() {
     rect(10, 35, playableX - 4, playableY + 7);
     noStroke();
     currentLevel.draw();
+    player.draw();
+    player.integrate();
   }
   
   //Check to see if the menu is to be shown
