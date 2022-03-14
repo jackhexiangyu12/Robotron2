@@ -7,17 +7,19 @@ void mouseDragged(){
 }
 
 void keyPressed() {  
-  if(key == 'w'){
-    player.velocity.y = -3; 
-  }
-  if(key == 'a'){
-    player.velocity.x = -3;
-  }
-  if(key == 's'){
-    player.velocity.y = 3;
-  }
-  if(key == 'd'){
-    player.velocity.x = 3;
+  if(screenView == gameScreen){
+    if(key == 'w'){
+      player.velocity.y = -2; 
+    }
+    if(key == 'a'){
+      player.velocity.x = -2;
+    }
+    if(key == 's'){
+      player.velocity.y = 2;
+    }
+    if(key == 'd'){
+      player.velocity.x = 2;
+    }
   }
 }
 
@@ -28,4 +30,18 @@ void keyReleased() {
   if(key == 'a' || key == 'd'){
     player.velocity.x = 0;
   }
+}
+
+void mouseClicked(){
+  if(screenView == gameScreen){     
+    Bullet justFired = new Bullet(player.position.x+(5 * cos(player.orientation)),player.position.y+(5 * sin(player.orientation)), 3 * cos(player.orientation), 3 * sin(player.orientation));
+    player.bullets.add(justFired);
+  }
+}
+
+void crosshair() {
+  strokeWeight(2);
+  stroke(250);
+  line(mouseX-4, mouseY-4, mouseX+4, mouseY+4);
+  line(mouseX+4, mouseY-4, mouseX-4, mouseY+4);
 }

@@ -1,5 +1,4 @@
 void setup() {
-  frameRate(30);
   size(1024, 768);
   noCursor(); //Dont want the cursor appearing when playing the game
   
@@ -12,11 +11,12 @@ void reset() {
   time = 0;
   fontColour = colours[0];
   colourTracker = 0;
+  livesAdded = 0;
   
   currentLevel = new Level(level++);
   currentLevel.generateLevel();
   player = new Player(0,0,0,0);
-  player.spawn(currentLevel.map);
+  player.spawn(currentLevel.map, PLAYERVALUE);
 }
 
 void draw() {
@@ -30,7 +30,8 @@ void draw() {
     
     textAlign(LEFT);
     fill(255);
-    text("Score:" + score, 10, 25);//User's score
+    text("Score:" + (score + (livesAdded * lifeAddedCost)), 10, 25);//User's score
+    text("Lives:"+ player.lives, (width/2)-45, 25);//Wave number
     text("Level:"+ level, width - 100, 25);//Round number
     stroke(fontColour[0], fontColour[1], fontColour[2]);
     strokeWeight(5);
@@ -39,7 +40,12 @@ void draw() {
     noStroke();
     currentLevel.draw();
     player.draw();
+    
+    levelStatusCheck();
     player.integrate();
+    player.drawBullets();
+    bulletCollidingWithEntityCheck();
+    crosshair();
   }
   
   //Check to see if the menu is to be shown

@@ -1,15 +1,17 @@
 class Level{
  int[][] map;
+ RobotStandard[] standardRobots;
  
  int level;
   
  Level(int level) {
    map = new int[horizontalDividers][verticalDividers];
+   standardRobots = new RobotStandard[numberOfStandardRobots()];
    this.level = level;
  }
  
  void generateLevel(){
-    for(int i = 0; i < 12; i++){
+    for(int i = 0; i <  (numberOfWalls() * 2); i++){
        int randomX = (int)random(0, horizontalDividers);
        int randomY = (int)random(0, verticalDividers);
        map[randomX][randomY] = 1;
@@ -24,7 +26,7 @@ class Level{
        }
     }
     
-    for(int i = 0; i < 6; i++){
+    for(int i = 0; i < numberOfWalls(); i++){
        int randomX = (int)random(0, horizontalDividers);
        int randomY = (int)random(0, verticalDividers);
        int hOrV = (int)random(0, 1);
@@ -60,6 +62,8 @@ class Level{
    if(hm.size() != total){
       map = new int[horizontalDividers][verticalDividers];
       generateLevel(); 
+   }else{
+      spawnEntities(); 
    }
  }
  
@@ -132,6 +136,20 @@ class Level{
        }
      }
    }
+   drawEntities();
+ }
+ 
+ void spawnEntities(){
+    for(int i = 0; i < standardRobots.length; i++){
+       standardRobots[i] = new RobotStandard(0,0);
+       standardRobots[i].spawn(map, STANDARDROBOTVALUE); 
+    }
+ }
+ 
+ void drawEntities(){
+    for(int i = 0; i < standardRobots.length; i++){
+       standardRobots[i].draw(); 
+    }
  }
  
 }

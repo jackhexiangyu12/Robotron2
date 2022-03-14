@@ -1,10 +1,14 @@
 class Player extends Entity{
   int lives;
+  
+  ArrayList<Bullet> bullets;
     
   Player(float x, float y, float vel1, float vel2){
     position = new PVector(x, y);
     velocity = new PVector(vel1, vel2);
     lives = 3;
+    bullets = new ArrayList<Bullet>();
+    r = 10;
   }
   
   void draw(){
@@ -19,43 +23,66 @@ class Player extends Entity{
   void integrate(){
     collisionCheck();
     position.add(velocity);
+    checkExtraLife();
   }
   
   void collisionCheck(){
-    if((player.position.x <= 25 && player.velocity.x == -3)|| (player.position.x >= 998 && player.velocity.x == 3)){
-      player.velocity.x = 0;
-    }else if((player.position.y <= 49 && player.velocity.y == -3)|| (player.position.y >= 749 && player.velocity.y == 3)){
-      player.velocity.y = 0;
+   if((position.x <= 25 && velocity.x == -2)|| (position.x >= 998 && velocity.x == 2)){
+      velocity.x = 0;
+    }else if((position.y <= 49 && velocity.y == -2)|| (position.y >= 749 && velocity.y == 2)){
+      velocity.y = 0;
     }
    
-   int positionX = (int)(player.position.x - 15)/dividerWidth;
-   int positionXL = (int)(player.position.x - 25)/dividerWidth;
-   int positionXR = (int)(player.position.x - 5)/dividerWidth;
-   int positionY = (int)(player.position.y - 40)/dividerHeight;
-   int positionYU = (int)(player.position.y - 50)/dividerHeight;
-   int positionYD = (int)(player.position.y - 30)/dividerHeight;
+   int positionX = (int)(position.x - 15)/dividerWidth;
+   int positionXL = (int)(position.x - (15 + r))/dividerWidth;
+   int positionXR = (int)(position.x - (15 - r))/dividerWidth;
+   int positionY = (int)(position.y - 39)/dividerHeight;
+   int positionYU = (int)(position.y - (39 + r))/dividerHeight;
+   int positionYD = (int)(position.y - (39 - r))/dividerHeight;
    
-   if(player.velocity.x == -3){
+   if(velocity.x == -2){
      if(currentLevel.map[positionXL][positionY] == 1){
-       player.velocity.x = 3;
-       player.position.x += 5;
+       velocity.x = 0;
+       position.x += 5;
      }
-   }else if(player.velocity.x == 3){
+   }
+   
+   if(velocity.x == 2){
      if(currentLevel.map[positionXR][positionY] == 1){
-       player.velocity.x = 0;
-       player.position.x -= 5;
+       velocity.x = 0;
+       position.x -= 5;
      }
-   }else if(player.velocity.y == -3){
+   }
+   
+   if(velocity.y == -2){
      if(currentLevel.map[positionX][positionYU] == 1){
-       player.velocity.y = 0;
-       player.position.y += 5;
+       velocity.y = 0;
+       position.y += 5;
      }
-   }else if(player.velocity.y == 3){
+   }
+   
+   if(velocity.y == 2){
      if(currentLevel.map[positionX][positionYD] == 1){
-       player.velocity.y = 0;
-       player.position.y -= 5;
+       velocity.y = 0;
+       position.y -= 5;
      }
    }
   
+  }
+  
+  void drawBullets(){
+    for(int i = 0; i < bullets.size(); i++){
+       bullets.get(i).integrate();
+       bullets.get(i).draw(); 
+    }
+  }
+  
+  void checkExtraLife(){
+   //Check to see if additional life threshold has been reached 
+    if(score >= lifeAddedCost){
+          lives++;//City revived
+          score -= lifeAddedCost;//'Active' score reduced by 5,000 to stop duplicate additional lives
+          livesAdded++;//Number of livesAdded incremented for total score purposes
+    } 
   }
 }
