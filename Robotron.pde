@@ -12,7 +12,7 @@ void reset() {
   fontColour = colours[0];
   colourTracker = 0;
   livesAdded = 0;
-  
+
   currentLevel = new Level(level++);
   currentLevel.generateLevel();
   player = new Player(0,0,0,0);
@@ -65,9 +65,9 @@ void draw() {
 
 }
 
-if(time < 15){
+  if(time < 15){
      time++;
-   }else{
+  }else{
      time = 0;
      if(colourTracker == 6){
        colourTracker = 0;
@@ -76,6 +76,12 @@ if(time < 15){
      }
    fontColour = colours[colourTracker];
    }
+   
+  if(obstacleColour == 255){
+    obstacleColour = 75;
+  }else{
+    obstacleColour++;
+  }
   
  
  

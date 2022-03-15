@@ -41,7 +41,7 @@ void mouseClicked(){
 
 void crosshair() {
   strokeWeight(2);
-  stroke(250);
+  stroke(fontColour[0], fontColour[1], fontColour[2]);
   line(mouseX-4, mouseY-4, mouseX+4, mouseY+4);
   line(mouseX+4, mouseY-4, mouseX-4, mouseY+4);
 }

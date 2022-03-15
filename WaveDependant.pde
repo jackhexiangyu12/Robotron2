@@ -32,3 +32,14 @@ int numberOfStandardRobots(){
     }
    
 }
+
+int numberOfObstacles(){
+    if(12 < (level - 2)){
+      return 12;
+    }else if ((level - 2) < 0){
+      return 0;
+    }else{
+      return (level - 2);
+    }
+   
+}

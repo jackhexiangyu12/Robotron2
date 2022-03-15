@@ -9,22 +9,23 @@ void levelStatusCheck() {
     currentLevel = new Level(level++);
     currentLevel.generateLevel();
     player.spawn(currentLevel.map, PLAYERVALUE);
+    player.bullets = new ArrayList<Bullet>();
     
     //Round is lost
   }else if(s == state.lost){
-    fill(240, 196, 32);
+    fill(fontColour[0], fontColour[1], fontColour[2]);
     textAlign(CENTER);
     
+    textSize(40);
+    text("GAME OVER", width/2, (height/2)-65);
+    
     textSize(30);
-    text("GAME OVER", width/2, (height/2)-45);
+    text("Level:"+ level, width/2, height/2-25);
+    text("Score:"+ score, width/2, height/2+15);
     
-    textSize(20);
-    text("Level:"+ level, width/2, height/2-20);
-    text("Score:"+ score, width/2, height/2+5);
-    
-    textSize(12);
-    text("Press 0 to play again", width/2, (height/2)+30);
-    text("Press 1 to return to the main menu", width/2, (height/2)+50);
+    textSize(18);
+    text("Press 0 to play again", width/2, (height/2)+45);
+    text("Press 1 to return to the main menu", width/2, (height/2)+70);
     
     //Check to see user input to send user to correct screen, including restarting the game
     if(keyPressed == true &&  key == '0'){

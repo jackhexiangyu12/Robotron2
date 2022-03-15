@@ -1,5 +1,6 @@
 class Player extends Entity{
-  int lives;
+  int lives,
+      iFrames;
   
   ArrayList<Bullet> bullets;
     
@@ -9,6 +10,7 @@ class Player extends Entity{
     lives = 3;
     bullets = new ArrayList<Bullet>();
     r = 10;
+    iFrames = 0;
   }
   
   void draw(){
@@ -17,8 +19,10 @@ class Player extends Entity{
     circle(position.x,position.y,20);
     fill(0);
     circle(position.x+(5 * cos(orientation)),position.y+(5 * sin(orientation)),5);
+    if(iFrames > 0){
+      iFrames--;
+    }
   }
-  
 
   void integrate(){
     collisionCheck();

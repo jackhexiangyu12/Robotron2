@@ -1,12 +1,16 @@
 class Level{
  int[][] map;
  RobotStandard[] standardRobots;
+ Obstacle[] obstacles;
  
  int level;
   
  Level(int level) {
    map = new int[horizontalDividers][verticalDividers];
    standardRobots = new RobotStandard[numberOfStandardRobots()];
+   if(numberOfObstacles() > 0){
+      obstacles = new Obstacle[numberOfObstacles()];
+   }
    this.level = level;
  }
  
@@ -144,12 +148,27 @@ class Level{
        standardRobots[i] = new RobotStandard(0,0);
        standardRobots[i].spawn(map, STANDARDROBOTVALUE); 
     }
+    
+    if(numberOfObstacles() > 0){
+      for(int i = 0; i < obstacles.length; i++){
+         obstacles[i] = new Obstacle(0,0);
+         obstacles[i].spawn(map, OBSTACLEVALUE); 
+      }
+    }
  }
  
  void drawEntities(){
     for(int i = 0; i < standardRobots.length; i++){
-       standardRobots[i].draw(); 
+       standardRobots[i].draw(colours[2]); 
     }
+    
+    if(numberOfObstacles() > 0){
+      for(int i = 0; i < obstacles.length; i++){
+        int[] arr = {obstacleColour, 0, 0};
+         obstacles[i].draw(arr); 
+      }
+     }
+    
  }
  
 }
