@@ -13,6 +13,7 @@ void levelStatusCheck() {
     
     //Round is lost
   }else if(s == state.lost){
+    gameOver.play();
     fill(fontColour[0], fontColour[1], fontColour[2]);
     textAlign(CENTER);
     
@@ -42,10 +43,15 @@ state levelStatusCheckCondition() {
 
   if (player.lives > 0) {
     for (int i=0; i < currentLevel.standardRobots.length; i++) {
-      if (currentLevel.standardRobots[i].status) {
-        return state.ongoing;
+      if (currentLevel.standardRobots[i].status) return state.ongoing;
     }
-  }
+    
+    if(numberOfConverters() > 0){
+      for (int j = 0; j < currentLevel.converters.length; j++) {
+        if (currentLevel.converters[j].status) return state.ongoing;
+      }
+    }
+    
     return state.won;//No meteors on the go, but a city is alive, so wave has been won
   }else{
     return state.lost;//No cities alive, so wave has been lost

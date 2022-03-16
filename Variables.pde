@@ -14,7 +14,9 @@ final int menuScreen = 0,
   lifeAddedCost = 5000,
   PLAYERVALUE = 2,
   STANDARDROBOTVALUE = 3,
-  OBSTACLEVALUE = 3;
+  OBSTACLEVALUE = 4,
+  HULKVALUE = 5,
+  CONVERTERVALUE = 6;
 
 int screenView = menuScreen,//Used to track the current screen the game is viewing
   score,
@@ -26,8 +28,6 @@ int screenView = menuScreen,//Used to track the current screen the game is viewi
   
 int colours[][] =  {{255, 0, 0}, {255, 127, 0},{255, 255, 0},{0, 255, 0},{0, 0, 255},{75, 0, 130},{148, 0, 211}},
     fontColour[];
-
-
   
 PFont font;
 
@@ -35,9 +35,21 @@ Level currentLevel;
 
 Player player;
 
-enum state {//Three possible states for a wave
+enum state {//Three possible states for a level
   ongoing,
   won,
   lost
 }
-  
+
+import ddf.minim.*;
+
+Minim minim;
+AudioPlayer gameMusic;
+AudioPlayer playerShoot;
+AudioPlayer extraLife;
+AudioPlayer playerDamage;
+AudioPlayer gameOver;
+AudioPlayer standardDestroyed;
+AudioPlayer obstacleDestroyed;
+AudioPlayer converterDestroyed;
+AudioPlayer convert;

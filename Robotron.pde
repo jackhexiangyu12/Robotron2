@@ -2,7 +2,20 @@ void setup() {
   size(1024, 768);
   noCursor(); //Dont want the cursor appearing when playing the game
   
+  //All music files are loaded in
+  minim = new Minim(this);
+  gameMusic = minim.loadFile("Audio/music.mp3");
+  playerShoot = minim.loadFile("Audio/shoot.mp3");
+  extraLife = minim.loadFile("Audio/extraLife.mp3");
+  playerDamage = minim.loadFile("Audio/damage.mp3");
+  gameOver = minim.loadFile("Audio/gameOver.mp3");
+  standardDestroyed = minim.loadFile("Audio/standardRobotDeath.mp3");
+  obstacleDestroyed = minim.loadFile("Audio/obstacleDestroyed.mp3");
+  converterDestroyed = minim.loadFile("Audio/converterDeath.mp3");
+  convert = minim.loadFile("Audio/converted.mp3");
+  
   reset();//Calls the reset function which initialises many of the game's variables as well as begins the game
+  gameMusic.loop();
 }
 
 void reset() {

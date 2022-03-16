@@ -1,9 +1,9 @@
-class RobotStandard extends Enemy{
+class Hulk extends Enemy{
  
-  RobotStandard(float x, float y){
+  Hulk(float x, float y){
    position = new PVector(x, y);
    status = true;
-   r = 25;
+   r = 30;
    orientation = 0;
    velocity = new PVector(0, 0) ;
   }
@@ -23,5 +23,6 @@ class RobotStandard extends Enemy{
     if (orientation > PI) orientation -= 2*PI ;
     else if (orientation < -PI) orientation += 2*PI ;    
   }
+ 
   
 }

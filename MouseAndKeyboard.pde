@@ -33,9 +33,12 @@ void keyReleased() {
 }
 
 void mouseClicked(){
-  if(screenView == gameScreen){     
-    Bullet justFired = new Bullet(player.position.x+(5 * cos(player.orientation)),player.position.y+(5 * sin(player.orientation)), 3 * cos(player.orientation), 3 * sin(player.orientation));
+  if(screenView == gameScreen && player.lives > 0){
+    player.orientation = atan2(mouseY-player.position.y, mouseX-player.position.x);
+    playerShoot.play();
+    Bullet justFired = new Bullet(player.position.x+(5 * cos(player.orientation)),player.position.y+(5 * sin(player.orientation)), 5 * cos(player.orientation), 5 * sin(player.orientation));
     player.bullets.add(justFired);
+    playerShoot.rewind();
   }
 }
 

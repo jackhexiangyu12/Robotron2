@@ -14,13 +14,15 @@ class Player extends Entity{
   }
   
   void draw(){
-    noStroke();
-    fill(255,127,0);
-    circle(position.x,position.y,20);
-    fill(0);
-    circle(position.x+(5 * cos(orientation)),position.y+(5 * sin(orientation)),5);
-    if(iFrames > 0){
-      iFrames--;
+    if(player.lives > 0){
+      noStroke();
+      fill(255,127,0);
+      circle(position.x,position.y,20);
+      fill(0);
+      circle(position.x+(5 * cos(orientation)),position.y+(5 * sin(orientation)),5);
+      if(iFrames > 0){
+        iFrames--;
+      }
     }
   }
 
@@ -31,7 +33,7 @@ class Player extends Entity{
   }
   
   void collisionCheck(){
-   if((position.x <= 25 && velocity.x == -2)|| (position.x >= 998 && velocity.x == 2)){
+   if((position.x <= 25 && velocity.x == -2)|| (position.x >= 996 && velocity.x == 2)){
       velocity.x = 0;
     }else if((position.y <= 49 && velocity.y == -2)|| (position.y >= 749 && velocity.y == 2)){
       velocity.y = 0;
@@ -84,9 +86,11 @@ class Player extends Entity{
   void checkExtraLife(){
    //Check to see if additional life threshold has been reached 
     if(score >= lifeAddedCost){
-          lives++;//City revived
-          score -= lifeAddedCost;//'Active' score reduced by 5,000 to stop duplicate additional lives
-          livesAdded++;//Number of livesAdded incremented for total score purposes
+        extraLife.play();
+        lives++;//City revived
+        score -= lifeAddedCost;//'Active' score reduced by 5,000 to stop duplicate additional lives
+        livesAdded++;//Number of livesAdded incremented for total score purposes
+        extraLife.rewind();
     } 
   }
 }

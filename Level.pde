@@ -2,6 +2,8 @@ class Level{
  int[][] map;
  RobotStandard[] standardRobots;
  Obstacle[] obstacles;
+ Converter[] converters;
+ Hulk[] hulks;
  
  int level;
   
@@ -11,13 +13,19 @@ class Level{
    if(numberOfObstacles() > 0){
       obstacles = new Obstacle[numberOfObstacles()];
    }
+   if(numberOfConverters() > 0){
+      converters = new Converter[numberOfConverters()];
+   }
+   if(numberOfHulks() > 0){
+      hulks = new Hulk[numberOfHulks()];
+   }
    this.level = level;
  }
  
  void generateLevel(){
-    for(int i = 0; i <  (numberOfWalls() * 2); i++){
-       int randomX = (int)random(0, horizontalDividers);
-       int randomY = (int)random(0, verticalDividers);
+    for(int i = 0; i <  (16); i++){
+       int randomX = (int)random(0, horizontalDividers - 1);
+       int randomY = (int)random(0, verticalDividers - 1);
        map[randomX][randomY] = 1;
        if(randomY >= (verticalDividers/2)){
          for(int j = randomY; j < verticalDividers; j++){
@@ -30,11 +38,11 @@ class Level{
        }
     }
     
-    for(int i = 0; i < numberOfWalls(); i++){
-       int randomX = (int)random(0, horizontalDividers);
-       int randomY = (int)random(0, verticalDividers);
+    for(int i = 0; i < 8; i++){
+       int randomX = (int)random(0, horizontalDividers - 1);
+       int randomY = (int)random(0, verticalDividers - 1);
        int hOrV = (int)random(0, 1);
-       int randomLength = (int)random(1, 5);
+       int randomLength = (int)random(3, 5);
        if(hOrV == 0){
          for(int j = 0; j < randomLength; j++){
             if(randomX + j < horizontalDividers){
@@ -134,8 +142,6 @@ class Level{
      for(int j = 0; j < verticalDividers; j++){
        if(map[i][j] == 1){
          fill(255);
-         stroke(0);
-         strokeWeight(2);
          rect(((i* dividerWidth) + 15), ((j * dividerHeight)+ 39), dividerWidth - 2, dividerHeight - 2);
        }
      }
@@ -155,11 +161,26 @@ class Level{
          obstacles[i].spawn(map, OBSTACLEVALUE); 
       }
     }
+    
+    if(numberOfConverters() > 0){
+      for(int i = 0; i < converters.length; i++){
+         converters[i] = new Converter(0,0);
+         converters[i].spawn(map, CONVERTERVALUE); 
+      }
+    }
+    
+    if(numberOfHulks() > 0){
+      for(int i = 0; i < hulks.length; i++){
+         hulks[i] = new Hulk(0,0);
+         hulks[i].spawn(map, HULKVALUE); 
+      }
+    }
  }
  
  void drawEntities(){
     for(int i = 0; i < standardRobots.length; i++){
        standardRobots[i].draw(colours[2]); 
+       standardRobots[i].integrate();
     }
     
     if(numberOfObstacles() > 0){
@@ -168,6 +189,20 @@ class Level{
          obstacles[i].draw(arr); 
       }
      }
+     
+     if(numberOfConverters() > 0){
+      for(int i = 0; i < converters.length; i++){
+        converters[i].draw(colours[6]);
+        converters[i].integrate();
+      }
+    }
+    
+    if(numberOfHulks() > 0){
+      for(int i = 0; i < hulks.length; i++){
+        hulks[i].draw(colours[1]);
+        hulks[i].integrate();
+      }
+    }
     
  }
  

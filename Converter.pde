@@ -1,9 +1,9 @@
-class RobotStandard extends Enemy{
+class Converter extends Enemy{
  
-  RobotStandard(float x, float y){
+  Converter(float x, float y){
    position = new PVector(x, y);
    status = true;
-   r = 25;
+   r = 20;
    orientation = 0;
    velocity = new PVector(0, 0) ;
   }
