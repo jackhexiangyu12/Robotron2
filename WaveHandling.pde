@@ -10,6 +10,7 @@ void levelStatusCheck() {
     currentLevel.generateLevel();
     player.spawn(currentLevel.map, PLAYERVALUE);
     player.bullets = new ArrayList<Bullet>();
+    player.invincible = false;
     
     //Round is lost
   }else if(s == state.lost){
@@ -49,6 +50,12 @@ state levelStatusCheckCondition() {
     if(numberOfConverters() > 0){
       for (int j = 0; j < currentLevel.converters.length; j++) {
         if (currentLevel.converters[j].status) return state.ongoing;
+      }
+    }
+    
+    if(numberOfBloodhounds() > 0){
+      for (int j = 0; j < currentLevel.bloodhounds.length; j++) {
+        if (currentLevel.bloodhounds[j].status) return state.ongoing;
       }
     }
     

@@ -1,7 +1,6 @@
 import java.util.Hashtable;
 import java.util.ArrayList;
 
-
 final int menuScreen = 0,
   gameScreen = 1,
   walkable = 1,
@@ -19,7 +18,8 @@ final int menuScreen = 0,
   CONVERTERVALUE = 6,
   FAMILYVALUE = 7,
   FREEZEVALUE = 8,
-  INVINCIBILITYVALUE = 9;
+  INVINCIBILITYVALUE = 9,
+  BLOODHOUNDVALUE = 10;
 
 int screenView = menuScreen,//Used to track the current screen the game is viewing
   score,

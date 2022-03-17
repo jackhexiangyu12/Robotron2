@@ -88,7 +88,6 @@ class MovingEntity extends Entity{
     position.add(velocity) ;
     temp.normalize();
     velocity.add(temp);
-    
     if (velocity.mag() > maxSpeed) {
       velocity.normalize() ; 
       velocity.mult(maxSpeed) ;

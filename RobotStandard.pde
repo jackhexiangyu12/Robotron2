@@ -1,24 +1,21 @@
 class RobotStandard extends Enemy{
-  
-  int maxSpeed;
- 
-  RobotStandard(float x, float y, int maxSpeed){
+   
+  RobotStandard(float x, float y){
    position = new PVector(x, y);
    status = true;
    r = 25;
    orientation = 0;
    velocity = new PVector(0, 0);
-   this.maxSpeed = maxSpeed;
   }
   
   void integrate() {
-    if(currentLevel.freeze == 0 && screenView == gameScreen && player.lives > 0){
+    if(currentLevel.freeze == 0 && screenView == gameScreen && player.lives > 0 && status){
       collisionCheck();
       if(targetFound(player.position.x, player.position.y)){
-        goTowards(player.position.x, player.position.y, maxSpeed);
+        goTowards(player.position.x, player.position.y, 2);
       }else{
-        velocity.x = cos(orientation) * (maxSpeed / 2);
-        velocity.y = sin(orientation) * (maxSpeed / 2);
+        velocity.x = cos(orientation);
+        velocity.y = sin(orientation);
     
         position.add(velocity) ;
     

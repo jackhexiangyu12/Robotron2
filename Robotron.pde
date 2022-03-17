@@ -24,7 +24,7 @@ void setup() {
 
 void reset() {
   score = 0;
-  level = 4;
+  level = 5;
   time = 0;
   fontColour = colours[0];
   colourTracker = 0;

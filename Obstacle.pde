@@ -6,5 +6,4 @@ class Obstacle extends Enemy{
    r = 30;
   }
  
-  
 }

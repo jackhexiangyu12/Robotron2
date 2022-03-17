@@ -7,6 +7,8 @@ class Level{
  Family[] family;
  Freeze freezeObject;
  Invincibility invincibility;
+ Bloodhound[] bloodhounds;
+
 
  int level,
      familyConverted,
@@ -14,7 +16,7 @@ class Level{
   
  Level(int level) {
    map = new int[horizontalDividers][verticalDividers];
-   standardRobots = new RobotStandard[numberOfStandardRobots() + 3];
+   standardRobots = new RobotStandard[numberOfStandardRobots()];
    family = new Family[3];
    if(numberOfObstacles() > 0){
       obstacles = new Obstacle[numberOfObstacles()];
@@ -24,6 +26,9 @@ class Level{
    }
    if(numberOfHulks() > 0){
       hulks = new Hulk[numberOfHulks()];
+   }
+   if(numberOfBloodhounds() > 0){
+      bloodhounds = new Bloodhound[numberOfBloodhounds() + 3];
    }
    this.level = level;
    familyConverted = 1;
@@ -161,7 +166,7 @@ class Level{
  }
  
  void spawnEntities(){
-    for(int i = 0; i < standardRobots.length - 3; i++){
+    for(int i = 0; i < standardRobots.length; i++){
        standardRobots[i] = new RobotStandard(0,0,2);
        standardRobots[i].spawn(map, STANDARDROBOTVALUE); 
     }
@@ -197,14 +202,19 @@ class Level{
     
     invincibility = new Invincibility(0,0);
     invincibility.spawn(map, INVINCIBILITYVALUE);
+    
+    if(numberOfBloodhounds() > 0){
+      for(int i = 0; i < bloodhounds.length - 3; i++){
+         bloodhounds[i] = new Bloodhound(0,0,3);
+         bloodhounds[i].spawn(map, BLOODHOUNDVALUE); 
+      }
+    }
  }
  
  void drawEntities(){
     for(int i = 0; i < standardRobots.length; i++){
-      if(standardRobots[i] != null){
          standardRobots[i].draw(colours[2]); 
          standardRobots[i].integrate();
-      }
     }
     
     for(int i = 0; i < family.length; i++){
@@ -240,6 +250,16 @@ class Level{
     
     int[] arr2 = {255,215,0};
     invincibility.draw(arr2);
+    
+    if(numberOfBloodhounds() > 0){
+      for(int i = 0; i < bloodhounds.length; i++){
+        if(bloodhounds[i] != null){
+          int[] arr = {165,42,42};
+          bloodhounds[i].draw(arr);
+          bloodhounds[i].integrate();
+        }
+      }
+    }
     
  }
  

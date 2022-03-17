@@ -36,7 +36,7 @@ class Family extends MovingEntity{
   }
   
   void integrate() {
-    if(player.lives > 0){
+    if(player.lives > 0 && status){
        collisionCheck();
        PVector closest = nearestThreat();
        if(targetFound(player.position.x, player.position.y)){
@@ -61,15 +61,11 @@ class Family extends MovingEntity{
   }
   
   PVector nearestThreat(){
-    PVector closest = currentLevel.hulks[0].position;
-    if(currentLevel.hulks[0].status){
-      closest.z = 1;
-    }else{
-      closest.z = 0;
-    }
+    PVector closest = new PVector(-1000, -1000);
+
     
     if(numberOfHulks() > 0){
-      for(int i = 1; i <currentLevel.hulks.length; i++){
+      for(int i = 0; i <currentLevel.hulks.length; i++){
         if(currentLevel.hulks[i].status){
           float closestDist = dist(closest.x, closest.y, position.x + (r/2), position.y+ (r/2));
           float dist = dist(currentLevel.hulks[i].position.x, currentLevel.hulks[i].position.y, position.x + (r/2), position.y+ (r/2));
@@ -139,7 +135,7 @@ class Family extends MovingEntity{
             if(((currentLevel.converters[i].position.y) < position.y + r) && ((currentLevel.converters[i].position.y + currentLevel.converters[i].r) > position.y)){
               convert.play();
               status = false;
-              currentLevel.standardRobots[currentLevel.standardRobots.length - currentLevel.familyConverted] = new RobotStandard(position.x,position.y, 4);
+              currentLevel.bloodhounds[currentLevel.bloodhounds.length - currentLevel.familyConverted] = new Bloodhound(position.x,position.y, 3);
               currentLevel.familyConverted++;
               convert.rewind();
             }

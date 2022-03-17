@@ -9,7 +9,7 @@ class Converter extends Enemy{
   }
   
   void integrate() {
-    if(currentLevel.freeze == 0 && screenView == gameScreen && player.lives > 0){
+    if(currentLevel.freeze == 0 && screenView == gameScreen && player.lives > 0 && status){
       collisionCheck();
       Family closest = closestFamilyMember();
       if(closest.status && targetFound(closest.position.x, closest.position.y)){
