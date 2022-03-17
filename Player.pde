@@ -1,8 +1,10 @@
-class Player extends Entity{
+class Player extends MovingEntity{
   int lives,
       iFrames;
   
   ArrayList<Bullet> bullets;
+  
+  boolean invincible;
     
   Player(float x, float y, float vel1, float vel2){
     position = new PVector(x, y);
@@ -11,17 +13,25 @@ class Player extends Entity{
     bullets = new ArrayList<Bullet>();
     r = 20;
     iFrames = 0;
+    invincible = false;
   }
   
   void draw(){
     if(player.lives > 0){
       noStroke();
-      fill(255,127,0);
+      if(invincible){
+        fill(fontColour[0], fontColour[1], fontColour[2]);
+      }else{
+        fill(255,127,0);
+      }
       circle(position.x,position.y,r);
       fill(0);
       circle(position.x+(5 * cos(orientation)),position.y+(5 * sin(orientation)),5);
       if(iFrames > 0){
         iFrames--;
+      }
+      if(iFrames == 0 && invincible){
+        invincible = false;
       }
     }
   }

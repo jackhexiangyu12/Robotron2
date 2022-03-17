@@ -17,7 +17,9 @@ final int menuScreen = 0,
   OBSTACLEVALUE = 4,
   HULKVALUE = 5,
   CONVERTERVALUE = 6,
-  FAMILYVALUE = 7;
+  FAMILYVALUE = 7,
+  FREEZEVALUE = 8,
+  INVINCIBILITYVALUE = 9;
 
 int screenView = menuScreen,//Used to track the current screen the game is viewing
   score,
@@ -56,3 +58,5 @@ AudioPlayer converterDestroyed;
 AudioPlayer convert;
 AudioPlayer familySaved;
 AudioPlayer familyDeath;
+AudioPlayer freeze;
+AudioPlayer invincibility;

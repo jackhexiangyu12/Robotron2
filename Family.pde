@@ -1,4 +1,4 @@
-class Family extends Entity{
+class Family extends MovingEntity{
   Boolean saved; 
   
    Family(float x, float y){
@@ -17,7 +17,6 @@ class Family extends Entity{
         square(position.x,position.y,r);
         collidingWithPlayer();
         collidingWithThreat();
-
     }
    }
   
@@ -41,7 +40,7 @@ class Family extends Entity{
        collisionCheck();
        PVector closest = nearestThreat();
        if(targetFound(player.position.x, player.position.y)){
-         goTowards(player.position.x, player.position.y);
+         goTowards(player.position.x, player.position.y, 2);
        }else if(targetFound(closest.x, closest.y)){
          if(closest.z == 1){
            goAway(player.position.x, player.position.y);
@@ -58,26 +57,6 @@ class Family extends Entity{
          if (orientation > PI) orientation -= 2*PI ;
          else if (orientation < -PI) orientation += 2*PI ;
        }
-    }
-  }
-  
-  void turnedIntegrate() {
-    if(player.lives > 0){
-      collisionCheck();
-      if(targetFound(player.position.x, player.position.y)){
-        goTowards(player.position.x, player.position.y);
-      }else{
-        velocity.x = cos(orientation) ;
-        velocity.y = sin(orientation) ;
-    
-        position.add(velocity) ;
-    
-        // randomly update orientation a little
-        orientation += random(0, PI/32) - random(0, PI/32) ;
-        // Keep in bounds
-        if (orientation > PI) orientation -= 2*PI ;
-        else if (orientation < -PI) orientation += 2*PI ;
-      }
     }
   }
   
@@ -160,7 +139,7 @@ class Family extends Entity{
             if(((currentLevel.converters[i].position.y) < position.y + r) && ((currentLevel.converters[i].position.y + currentLevel.converters[i].r) > position.y)){
               convert.play();
               status = false;
-              currentLevel.standardRobots[currentLevel.standardRobots.length - currentLevel.familyConverted] = new RobotStandard(position.x,position.y);
+              currentLevel.standardRobots[currentLevel.standardRobots.length - currentLevel.familyConverted] = new RobotStandard(position.x,position.y, 4);
               currentLevel.familyConverted++;
               convert.rewind();
             }

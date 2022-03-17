@@ -43,7 +43,7 @@ state levelStatusCheckCondition() {
 
   if (player.lives > 0) {
     for (int i=0; i < currentLevel.standardRobots.length; i++) {
-      if (currentLevel.standardRobots[i].status) return state.ongoing;
+      if (currentLevel.standardRobots[i] != null && currentLevel.standardRobots[i].status) return state.ongoing;
     }
     
     if(numberOfConverters() > 0){

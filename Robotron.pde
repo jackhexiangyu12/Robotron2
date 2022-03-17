@@ -15,6 +15,8 @@ void setup() {
   convert = minim.loadFile("Audio/converted.mp3");
   familySaved = minim.loadFile("Audio/familySaved.mp3");
   familyDeath = minim.loadFile("Audio/familyDeath.mp3");
+  freeze = minim.loadFile("Audio/freeze.mp3");
+  invincibility = minim.loadFile("Audio/invincibility.mp3");
   
   reset();//Calls the reset function which initialises many of the game's variables as well as begins the game
   //gameMusic.loop();

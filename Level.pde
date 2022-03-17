@@ -5,9 +5,12 @@ class Level{
  Converter[] converters;
  Hulk[] hulks;
  Family[] family;
+ Freeze freezeObject;
+ Invincibility invincibility;
 
  int level,
-     familyConverted;
+     familyConverted,
+     freeze;
   
  Level(int level) {
    map = new int[horizontalDividers][verticalDividers];
@@ -24,6 +27,7 @@ class Level{
    }
    this.level = level;
    familyConverted = 1;
+   freeze = 60;
  }
  
  void generateLevel(){
@@ -151,11 +155,14 @@ class Level{
      }
    }
    drawEntities();
+   if(freeze > 0){
+     freeze--;
+   }
  }
  
  void spawnEntities(){
     for(int i = 0; i < standardRobots.length - 3; i++){
-       standardRobots[i] = new RobotStandard(0,0);
+       standardRobots[i] = new RobotStandard(0,0,2);
        standardRobots[i].spawn(map, STANDARDROBOTVALUE); 
     }
     
@@ -184,6 +191,12 @@ class Level{
          hulks[i].spawn(map, HULKVALUE); 
       }
     }
+    
+    freezeObject = new Freeze(0,0);
+    freezeObject.spawn(map, FREEZEVALUE);
+    
+    invincibility = new Invincibility(0,0);
+    invincibility.spawn(map, INVINCIBILITYVALUE);
  }
  
  void drawEntities(){
@@ -216,10 +229,17 @@ class Level{
     
     if(numberOfHulks() > 0){
       for(int i = 0; i < hulks.length; i++){
-        hulks[i].draw(colours[1]);
+        int[] arr = {20, 20, 180};
+        hulks[i].draw(arr);
         hulks[i].integrate();
       }
     }
+    
+    int[] arr1 = {173, 216, 230};
+    freezeObject.draw(arr1); 
+    
+    int[] arr2 = {255,215,0};
+    invincibility.draw(arr2);
     
  }
  

@@ -1,4 +1,4 @@
-class Bullet extends Entity{
+class Bullet extends MovingEntity{
  
  Bullet(float x, float y, float vel1, float vel2){
    velocity = new PVector(vel1, vel2);

@@ -6,15 +6,14 @@ class Converter extends Enemy{
    r = 20;
    orientation = 0;
    velocity = new PVector(0, 0) ;
-   freeze = 60;
   }
   
   void integrate() {
-    if(freeze == 0 && screenView == gameScreen && player.lives > 0){
+    if(currentLevel.freeze == 0 && screenView == gameScreen && player.lives > 0){
       collisionCheck();
       Family closest = closestFamilyMember();
       if(closest.status && targetFound(closest.position.x, closest.position.y)){
-        goTowards(closest.position.x, closest.position.y);
+        goTowards(closest.position.x, closest.position.y, 2);
       }else{
         velocity.x = cos(orientation) ;
         velocity.y = sin(orientation) ;
@@ -27,8 +26,6 @@ class Converter extends Enemy{
         if (orientation > PI) orientation -= 2*PI ;
         else if (orientation < -PI) orientation += 2*PI ;
       }
-    }else{
-     freeze--; 
     }
   }
   

@@ -1,5 +1,5 @@
-class Enemy extends Entity{
-  int freeze;
+class Enemy extends MovingEntity{
+ 
   
    void draw(int[] rgb){
      if(status){
