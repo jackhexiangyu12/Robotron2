@@ -9,7 +9,7 @@ class Player extends Entity{
     velocity = new PVector(vel1, vel2);
     lives = 3;
     bullets = new ArrayList<Bullet>();
-    r = 10;
+    r = 20;
     iFrames = 0;
   }
   
@@ -17,7 +17,7 @@ class Player extends Entity{
     if(player.lives > 0){
       noStroke();
       fill(255,127,0);
-      circle(position.x,position.y,20);
+      circle(position.x,position.y,r);
       fill(0);
       circle(position.x+(5 * cos(orientation)),position.y+(5 * sin(orientation)),5);
       if(iFrames > 0){
@@ -40,11 +40,12 @@ class Player extends Entity{
     }
    
    int positionX = (int)(position.x - 15)/dividerWidth;
-   int positionXL = (int)(position.x - (15 + r))/dividerWidth;
-   int positionXR = (int)(position.x - (15 - r))/dividerWidth;
+   int positionXL = (int)(position.x - (15 + (r/2)))/dividerWidth;
+   int positionXR = (int)(position.x - (15 - r/2))/dividerWidth;
    int positionY = (int)(position.y - 39)/dividerHeight;
-   int positionYU = (int)(position.y - (39 + r))/dividerHeight;
-   int positionYD = (int)(position.y - (39 - r))/dividerHeight;
+   int positionYU = (int)(position.y - (39 + r/2))/dividerHeight;
+   int positionYD = (int)(position.y - (39 - r/2))/dividerHeight;
+
    
    if(velocity.x == -2){
      if(currentLevel.map[positionXL][positionY] == 1){

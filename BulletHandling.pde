@@ -2,6 +2,7 @@ void bulletCollidingWithEntityCheck(){
   for(int i = 0; i < player.bullets.size(); i++){
      if(player.bullets.get(i).status){
          for(int j = 0; j < currentLevel.standardRobots.length; j++){
+           if(currentLevel.standardRobots[j] != null){
              if(currentLevel.standardRobots[j].status){
                  if(currentLevel.standardRobots[j].collidingWithBullet(player.bullets.get(i))){
                    standardDestroyed.play();
@@ -12,6 +13,7 @@ void bulletCollidingWithEntityCheck(){
                    standardDestroyed.rewind();
                  }
              }  
+           }
          }
          
          if(numberOfObstacles() > 0){

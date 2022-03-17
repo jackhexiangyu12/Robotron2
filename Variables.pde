@@ -11,12 +11,13 @@ final int menuScreen = 0,
   horizontalDividers = 16,
   dividerWidth = playableX/horizontalDividers,
   dividerHeight = playableY/verticalDividers,
-  lifeAddedCost = 5000,
+  lifeAddedCost = 10000,
   PLAYERVALUE = 2,
   STANDARDROBOTVALUE = 3,
   OBSTACLEVALUE = 4,
   HULKVALUE = 5,
-  CONVERTERVALUE = 6;
+  CONVERTERVALUE = 6,
+  FAMILYVALUE = 7;
 
 int screenView = menuScreen,//Used to track the current screen the game is viewing
   score,
@@ -53,3 +54,5 @@ AudioPlayer standardDestroyed;
 AudioPlayer obstacleDestroyed;
 AudioPlayer converterDestroyed;
 AudioPlayer convert;
+AudioPlayer familySaved;
+AudioPlayer familyDeath;

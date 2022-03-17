@@ -4,12 +4,15 @@ class Level{
  Obstacle[] obstacles;
  Converter[] converters;
  Hulk[] hulks;
- 
- int level;
+ Family[] family;
+
+ int level,
+     familyConverted;
   
  Level(int level) {
    map = new int[horizontalDividers][verticalDividers];
-   standardRobots = new RobotStandard[numberOfStandardRobots()];
+   standardRobots = new RobotStandard[numberOfStandardRobots() + 3];
+   family = new Family[3];
    if(numberOfObstacles() > 0){
       obstacles = new Obstacle[numberOfObstacles()];
    }
@@ -20,6 +23,7 @@ class Level{
       hulks = new Hulk[numberOfHulks()];
    }
    this.level = level;
+   familyConverted = 1;
  }
  
  void generateLevel(){
@@ -150,9 +154,14 @@ class Level{
  }
  
  void spawnEntities(){
-    for(int i = 0; i < standardRobots.length; i++){
+    for(int i = 0; i < standardRobots.length - 3; i++){
        standardRobots[i] = new RobotStandard(0,0);
        standardRobots[i].spawn(map, STANDARDROBOTVALUE); 
+    }
+    
+    for(int i = 0; i < family.length; i++){
+       family[i] = new Family(0,0);
+       family[i].spawn(map, FAMILYVALUE); 
     }
     
     if(numberOfObstacles() > 0){
@@ -179,8 +188,16 @@ class Level{
  
  void drawEntities(){
     for(int i = 0; i < standardRobots.length; i++){
-       standardRobots[i].draw(colours[2]); 
-       standardRobots[i].integrate();
+      if(standardRobots[i] != null){
+         standardRobots[i].draw(colours[2]); 
+         standardRobots[i].integrate();
+      }
+    }
+    
+    for(int i = 0; i < family.length; i++){
+       family[i].draw(colours[3]); 
+       family[i].integrate();
+       familySaved();
     }
     
     if(numberOfObstacles() > 0){
@@ -205,5 +222,18 @@ class Level{
     }
     
  }
+ 
+ void familySaved(){
+   for(int i = 0; i < family.length; i++){
+    if(family[i].saved){
+     int flatScore = 300 + (i * 100);
+     float newScore = flatScore * scoreMultiplier();
+     score += flatScore + newScore;
+     family[i].saved = false;
+    }
+   }
+ }
+ 
+ 
  
 }

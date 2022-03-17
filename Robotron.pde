@@ -13,14 +13,16 @@ void setup() {
   obstacleDestroyed = minim.loadFile("Audio/obstacleDestroyed.mp3");
   converterDestroyed = minim.loadFile("Audio/converterDeath.mp3");
   convert = minim.loadFile("Audio/converted.mp3");
+  familySaved = minim.loadFile("Audio/familySaved.mp3");
+  familyDeath = minim.loadFile("Audio/familyDeath.mp3");
   
   reset();//Calls the reset function which initialises many of the game's variables as well as begins the game
-  gameMusic.loop();
+  //gameMusic.loop();
 }
 
 void reset() {
   score = 0;
-  level = 0;
+  level = 4;
   time = 0;
   fontColour = colours[0];
   colourTracker = 0;

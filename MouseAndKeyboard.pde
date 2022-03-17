@@ -32,7 +32,7 @@ void keyReleased() {
   }
 }
 
-void mouseClicked(){
+void mousePressed(){
   if(screenView == gameScreen && player.lives > 0){
     player.orientation = atan2(mouseY-player.position.y, mouseX-player.position.x);
     playerShoot.play();
