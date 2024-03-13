@@ -167,7 +167,7 @@ class Level{
  
  void spawnEntities(){
     for(int i = 0; i < standardRobots.length; i++){
-       standardRobots[i] = new RobotStandard(0,0,2);
+       standardRobots[i] = new RobotStandard(0,2);
        standardRobots[i].spawn(map, STANDARDROBOTVALUE); 
     }
     
